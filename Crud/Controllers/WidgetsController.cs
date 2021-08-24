@@ -1,3 +1,5 @@
+using System.Linq;
+using System.Security.Cryptography;
 using Crud.ViewModels.Widgets;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,8 +15,19 @@ namespace Crud.Controllers
             if (TempData.TryGetValue("Message", out var message)) {
                 ViewBag.Message = message;
             }
-            
-            return View(new IndexViewModel());
+
+            var indexViewModel = new IndexViewModel
+            {
+                Results = Enumerable.Range(1, 10)
+                    .Select(i => new WidgetModel {
+                        Id = i,
+                        Name = $"Widget #{i}",
+                        Manufacturer = "One",
+                        Weight = RandomNumberGenerator.GetInt32(1, 20)
+                    }).ToList()
+            };
+                
+            return View(indexViewModel);
         }
 
         // widget/1
