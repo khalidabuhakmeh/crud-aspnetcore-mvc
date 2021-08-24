@@ -1,0 +1,22 @@
+@using Crud.ViewModels
+@using System.Net.Http
+@model Crud.ViewModels.Widgets.EditViewModel
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<h2>Widgets > Edit</h2>
+
+<form method="post"
+      asp-controller="Widgets"
+      asp-action="Update"
+      asp-route-id="@Model.Id">
+    
+    <input type="hidden" asp-for="Id" />
+    
+    @await Html.PartialAsync("_Edit", Model)
+    
+    @Html.HttpMethodOverride(HttpMethod.Put)
+</form>

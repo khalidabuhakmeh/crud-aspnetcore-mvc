@@ -1,0 +1,15 @@
+@model Crud.ViewModels.Widgets.CreateViewModel
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<h2>Widgets > New</h2>
+
+<form method="post"
+      asp-controller="Widgets"
+      asp-action="Create">
+    
+    @await Html.PartialAsync("_Edit", Model)
+</form>

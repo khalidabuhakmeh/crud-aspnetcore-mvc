@@ -1,0 +1,53 @@
+@using System.Security.Cryptography
+@using Crud.ViewModels
+@using System.Net.Http
+@model Crud.ViewModels.Widgets.IndexViewModel
+
+
+<h1>Widgets</h1>
+
+<p>
+    These widgets are randomly generated on index.
+    This is meant to illustrate a common patterns
+    building data driven applications utilizing viewmodels.
+</p>
+
+<div class="row mb-3">
+    <div class="col-12 text-right">
+        <a class="btn btn-primary" asp-action="New">New</a>
+    </div>
+</div>
+
+@await Html.PartialAsync("_Notifications")
+
+<div class="row">
+    <div class="col-12">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Weight</th>
+                <th>Manufacturer</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            @for (int i = 1; i < 11; i++)
+            {
+                <tr>
+                    <td>Widget #@i</td>
+                    <td>@RandomNumberGenerator.GetInt32(1, 100)</td>
+                    <td>One</td>
+                    <td>
+                        <a class="btn btn-secondary" asp-action="Edit" asp-route-id="@i">Edit</a>
+                        <button type="submit" form="remove" name="id" value="@i" class="btn btn-danger" asp-action="Delete" asp-route-id="@i" onclick="return confirm('Do you really want to delete Widget #@i?');">Delete</button>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+        <form id="remove" method="post">
+            @Html.HttpMethodOverride(HttpMethod.Delete)
+        </form>
+    </div>
+</div>
